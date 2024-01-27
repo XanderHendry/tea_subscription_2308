@@ -1,5 +1,5 @@
 class Subscription < ApplicationRecord
-  validates :title, :price, :status, :frequency, presence: true
+  validates :customer_id, :tea_id, :status, :frequency, presence: true
   belongs_to :customer
   belongs_to :tea
 

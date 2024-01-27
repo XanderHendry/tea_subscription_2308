@@ -1,4 +1,4 @@
 class Tea < ApplicationRecord
-  validates :title, :description, :temperature, :brew_time, presence: true
+  validates :title, :description, :temperature, :brew_time, :price, presence: true
   has_many :subscriptions
 end
