@@ -2,6 +2,12 @@ module Api
   module V0
     class SubscriptionsController < ApplicationController
       before_action :set_tea, only: [:create]
+      before_action :set_customer, only: [:index]
+
+      def index
+        subs = @customer.subscriptions
+        render json: SubscriptionsSerializer.new(subs), status: :ok
+      end
 
       def create
         sub = Subscription.create(subscription_params)
@@ -26,6 +32,9 @@ module Api
     
       def set_tea
         @tea = Tea.find(params[:tea_id])
+      end
+      def set_customer
+        @customer = Customer.find(params[:customer_id])
       end
     end
   end

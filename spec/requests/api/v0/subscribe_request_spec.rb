@@ -1,7 +1,7 @@
 # An endpoint to subscribe a customer to a tea subscription
 require 'rails_helper'
 
-RSpec.describe 'Subscribe Customer to Tea Subscription (post /api/v0/subscribe)' do
+RSpec.describe 'Subscribe Customer to Tea Subscription (post /api/v0/subscriptions)' do
   before(:each) do
    @customer = create(:customer)
    @tea = create(:tea)
