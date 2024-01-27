@@ -1,7 +1,7 @@
 # An endpoint to cancel a customer’s tea subscription
 require 'rails_helper'
 
-RSpec.describe 'Subscribe Customer to Tea Subscription (post /api/v0/subscribe)' do
+RSpec.describe 'Subscribe Customer to Tea Subscription (delete /api/v0/subscribe/:id)' do
   before(:each) do
    @customer = create(:customer)
    @tea_1 = create(:tea)
