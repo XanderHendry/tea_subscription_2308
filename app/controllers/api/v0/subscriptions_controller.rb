@@ -8,6 +8,12 @@ module Api
         render json: SubscriptionsSerializer.new(sub), status: :created
       end
 
+      def destroy
+        sub = Subscription.find(params[:id])
+        sub.update(status: 1)
+        render json: SubscriptionsSerializer.new(sub), status: :ok
+      end
+
       private
 
       def subscription_params
