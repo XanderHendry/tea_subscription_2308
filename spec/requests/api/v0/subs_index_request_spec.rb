@@ -11,22 +11,26 @@ RSpec.describe 'List all of a Customers Tea Subscriptions (get /api/v0/subscript
    end
   describe 'Happy Path' do
     it 'lists a customers active and cancelled tea subscriptions' do
-      get '/api/v0/subscriptions', params: {
+      get '/api/v0/customers', params: {
         customer_id: @customer.id
       }
       expect(response).to be_successful
       expect(response.status).to eq(200)
       result = JSON.parse(response.body, symbolize_names: true)
-      expect(result[:data]).to be_an(Array)
-      expect(result[:data].count).to eq(2)
-      sub_1 = result[:data].first[:attributes]
-      expect(sub_1[:status]).to eq("Active")
-      expect(sub_1[:tea][:title]).to eq(@tea_1.title)
-      expect(sub_1[:customer][:first_name]).to eq(@customer.first_name)
-      sub_2 = result[:data].last[:attributes]
-      expect(sub_2[:status]).to eq("Cancelled")
-      expect(sub_2[:tea][:title]).to eq(@tea_2.title)
-      expect(sub_2[:customer][:first_name]).to eq(@customer.first_name)
+      expect(result[:data]).to be_an(Hash)
+      expect(result[:data][:attributes][:first_name]).to eq(@customer.first_name)
+      expect(result[:data][:attributes][:subscriptions].count).to eq(2)
+    end
+  end
+  describe 'Sad Path' do
+    it 'will return an error message if an invalid Customer id is given' do
+      get '/api/v0/customers', params: {
+        customer_id: 'bad ID'
+      }
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+      result = JSON.parse(response.body, symbolize_names: true)[:errors].first
+      expect(result[:title]).to eq("Couldn't find Customer with 'id'=bad ID")
     end
   end
 end 
